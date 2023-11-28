@@ -11,11 +11,11 @@ app.use(json());
 
 const { parsed: config } = dotenv.config();
 
-const BASE_URL = `https://api.cloudinary.com/v1_1/${config.CLOUD_NAME}`;
+const BASE_URL = `https://api.cloudinary.com/v1_1/${process.config.CLOUD_NAME}`;
 
 const auth = {
-	username: config.API_KEY,
-	password: config.API_SECRET,
+	username: process.config.API_KEY,
+	password: process.config.API_SECRET,
 };
 
 app.get('/photos', async (req, res) => {
