@@ -1,9 +1,12 @@
 const express = require('express');
+const dotenv = require('dotenv'); 
 const cors = require('cors');
 const { json } = require('body-parser');
 const axios = require('axios');
 const serverless = require('serverless-http');
 const app = express();
+
+dotenv.config({ path: './.env' });
 
 app.use(cors());
 app.use(json());
@@ -18,6 +21,7 @@ const auth = {
 };
 
 router.get('/photos', async (req, res) => {
+	console.log("Photos method");
 	const response = await axios.get(BASE_URL + '/resources/image', {
 		auth,
 		params: {
@@ -38,10 +42,13 @@ router.get('/search', async (req, res) => {
 	return res.send(response.data);
 });
 
+
 app.use('/.netlify/functions/api',router)
 
 module.exports.handler = serverless(app);
 
-// const PORT = 7000;
+// -----------------For Local Run-----------------------
 
+// app.use('/',router)
+// const PORT = 7000;
 // app.listen(PORT, console.log(`Server running on port ${PORT}`));
